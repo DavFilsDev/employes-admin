@@ -1,4 +1,12 @@
-import { Admin } from "react-admin";
-import { Layout } from "./Layout";
+import { Admin, Resource } from "react-admin";
+import jsonServerProvider from "ra-data-json-server";
 
-export const App = () => <Admin layout={Layout}></Admin>;
+const dataProvider = jsonServerProvider("http://localhost:3002");
+
+export default function App() {
+  return (
+    <Admin dataProvider={dataProvider}>
+      <Resource name="employees" />
+    </Admin>
+  );
+}

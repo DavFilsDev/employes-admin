@@ -1,0 +1,28 @@
+{
+  "employees": [
+    {
+      "id": 1,
+      "prenom": "Alice Martin",
+      "email": "alice@company.com",
+      "departement": "Informatique",
+      "salaire": 2800,
+      "actif": true
+    },
+    {
+      "id": 2,
+      "prenom": "Bob Dupont",
+      "email": "bob@company.com",
+      "departement": "Marketing",
+      "salaire": 2500,
+      "actif": true
+    },
+    {
+      "id": 3,
+      "prenom": "Clara Nguyen",
+      "email": "clara@company.com",
+      "departement": "RH",
+      "salaire": 2600,
+      "actif": false
+    }
+  ]
+}

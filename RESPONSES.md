@@ -401,3 +401,63 @@ Résumé :
 **TabbedShowLayout**
 
 → organisé, plusieurs onglets, adapté aux gros formulaires.
+
+---
+
+# Partie 2 — Réponses
+
+## Question 6.1 — ReferenceField génère quel appel HTTP ?
+
+`ReferenceField` génère un appel `GET /employees/:id` pour chaque `managerId` unique présent dans la liste. React-Admin optimise en regroupant les ids via `GET /employees?id=1&id=2` (batch).
+
+## Question 6.2 — Que se passe-t-il si managerId ne correspond à aucun employé ?
+
+`ReferenceField` affiche une cellule vide ou un indicateur d'erreur. Aucune exception n'est levée côté interface.
+
+## Question 7.1 — Quelle méthode HTTP est émise lors de la soumission de InternCreate ?
+
+Une requête `POST /interns` est envoyée avec le corps JSON du stagiaire créé.
+
+## Question 7.2 — Quel hook pour la validation conditionnelle de remuneration ?
+
+On utilise `useWatch` de `react-hook-form` (intégré à React-Admin). Il permet de lire en temps réel la valeur de `isRemunerate` dans le formulaire, et d'afficher/masquer conditionnellement le champ `remuneration` avec sa validation.
+
+## Question 8.1 — Différence entre useGetOne et ReferenceField ?
+
+`ReferenceField` est un composant déclaratif conçu pour s'intégrer dans un `<Show>` ou `<Datagrid>` : il gère le chargement et l'affichage automatiquement. `useGetOne` est un hook bas niveau qui donne un contrôle total sur l'affichage (gestion manuelle de isPending / error / data). On préfère `useGetOne` quand on veut un composant autonome avec une logique d'affichage personnalisée (comme `ManagerCard`).
+
+## Question 8.2 — Que se passe-t-il si useGetOne reçoit id: undefined sans l'option enabled ?
+
+Sans `{ enabled: false }`, React-Admin émet `GET /employees/undefined`, ce qui provoque une erreur 404. L'option `enabled: !!intern?.managerId` bloque l'appel jusqu'à ce que l'id soit défini.
+
+## Question 9.1 — Différence entre useGetList et ReferenceManyField ?
+
+`ReferenceManyField` est déclaratif et lié à un contexte de record React-Admin. `useGetList` est un hook bas niveau utilisable dans n'importe quel composant, même en dehors du contexte React-Admin, et permet des filtres et paramètres arbitraires.
+
+## Question 9.2 — Comment optimiser DepartmentStats ?
+
+En utilisant `pagination: { page: 1, perPage: 1 }`. json-server renvoie le total dans les headers HTTP (`X-Total-Count`), donc React-Admin obtient le total sans charger tous les enregistrements.
+
+## Question 10.1 — useUpdate utilise quelle méthode HTTP par défaut ? Comment forcer PATCH ?
+
+Par défaut, `useUpdate` envoie `PUT`. Pour forcer `PATCH`, on passe `meta: { method: 'PATCH' }` dans les options, selon le dataProvider utilisé.
+
+## Question 10.2 — Pourquoi previousData est-il nécessaire ?
+
+`previousData` permet à React-Admin d'effectuer une mise à jour optimiste : il fusionne les nouvelles données avec les anciennes pour construire l'objet complet envoyé à l'API. Sans `previousData`, React-Admin ne peut pas calculer le diff et peut envoyer un objet incomplet.
+
+## Question 11.1 — Différence entre useCreate et le composant <Create> ?
+
+`<Create>` est un composant complet avec routing, formulaire et redirection automatique. `useCreate` est un hook bas niveau qu'on utilise dans n'importe quel composant custom (ex : une modale), sans naviguer vers une autre page.
+
+## Question 11.2 — Comment gérer le rechargement après useCreate ?
+
+On utilise le hook `useRefresh()` de React-Admin et on l'appelle dans le callback `onSuccess` de `useCreate`. Cela force React-Admin à relancer les requêtes de la liste courante.
+
+## Question 12.1 — Les 4 appels useGetList se font-ils en parallèle ou en séquence ?
+
+En parallèle. React effectue tous les rendus du composant `Dashboard` en un seul passage, ce qui déclenche les 4 hooks simultanément. Les requêtes HTTP partent en même temps.
+
+## Question 12.2 — Pourquoi perPage: 1 est préférable à perPage: 100 ?
+
+On n'a besoin que du total (`X-Total-Count` dans les headers), pas des données. Avec `perPage: 1`, l'API ne renvoie qu'un seul enregistrement dans le corps de la réponse, ce qui réduit considérablement la taille de la réponse et le temps de chargement.

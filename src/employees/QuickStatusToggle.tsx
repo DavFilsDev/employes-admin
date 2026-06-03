@@ -7,7 +7,10 @@ export const QuickStatusToggle = () => {
 
   if (!record) return null;
 
-  const handleToggle = () => {
+  const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+    
     update(
       "employees",
       {

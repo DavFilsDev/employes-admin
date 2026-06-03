@@ -1,31 +1,101 @@
 {
   "employees": [
-     {
-      "active": true,
-      "firstname": "Alice ",
+    {
+      "id": 1,
+      "firstname": "Alice",
       "lastname": "Martin",
       "email": "alice@company.com",
       "department": "Informatique",
       "salary": 2800,
-      "id": 1
+      "active": true
     },
     {
-      "active": true,
-      "firstname": "Bob ",
+      "id": 2,
+      "firstname": "Bob",
       "lastname": "Dupont",
       "email": "bob@company.com",
       "department": "Marketing",
       "salary": 2500,
-      "id": 2
+      "active": true
     },
     {
-      "active": true,
-      "firstname": "Clara ",
+      "id": 3,
+      "firstname": "Clara",
       "lastname": "Nguyen",
       "email": "clara@company.com",
       "department": "RH",
       "salary": 2600,
-      "id": 3
+      "active": true
+    },
+    {
+      "id": 4,
+      "firstname": "David",
+      "lastname": "Leroy",
+      "email": "david@company.com",
+      "department": "Informatique",
+      "salary": 3100,
+      "active": false
+    },
+    {
+      "id": 5,
+      "firstname": "Emma",
+      "lastname": "Bernard",
+      "email": "emma@company.com",
+      "department": "Marketing",
+      "salary": 2700,
+      "active": true
+    }
+  ],
+  "interns": [
+    {
+      "id": 1,
+      "firstname": "Lucas",
+      "lastname": "Petit",
+      "email": "lucas@intern.com",
+      "department": "Informatique",
+      "managerId": 1,
+      "isRemunerate": true,
+      "remuneration": 600
+    },
+    {
+      "id": 2,
+      "firstname": "Jade",
+      "lastname": "Moreau",
+      "email": "jade@intern.com",
+      "department": "Marketing",
+      "managerId": 2,
+      "isRemunerate": false,
+      "remuneration": 0
+    },
+    {
+      "id": 3,
+      "firstname": "Noah",
+      "lastname": "Simon",
+      "email": "noah@intern.com",
+      "department": "Informatique",
+      "managerId": 1,
+      "isRemunerate": true,
+      "remuneration": 550
+    },
+    {
+      "id": 4,
+      "firstname": "Inès",
+      "lastname": "Laurent",
+      "email": "ines@intern.com",
+      "department": "Marketing",
+      "managerId": 5,
+      "isRemunerate": true,
+      "remuneration": 500
+    },
+    {
+      "id": 5,
+      "firstname": "Tom",
+      "lastname": "Durand",
+      "email": "tom@intern.com",
+      "department": "RH",
+      "managerId": 3,
+      "isRemunerate": false,
+      "remuneration": 0
     }
   ]
 }
